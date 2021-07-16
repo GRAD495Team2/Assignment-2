@@ -1,0 +1,790 @@
+
+R version 4.1.0 (2021-05-18) -- "Camp Pontanezen"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[R.app GUI 1.76 (7976) x86_64-apple-darwin17.0]
+
+[Workspace restored from /Users/fernando/.RData]
+[History restored from /Users/fernando/.Rapp.history]
+
+> setwd("/Volumes/RStudio-1.4.1717/RStudio.app")
+> setwd("/Volumes/RStudio-1.4.1717/RStudio.app")
+> ls()
+character(0)
+starting httpd help server ... done
+> 
+> penguins {palmerpenguins}
+Error: unexpected '{' in "penguins {"
+> #install tidyverse
+> install.packages("dplyr")
+--- Please select a CRAN mirror for use in this session ---
+Error in if (res > nrow(m)) { : argument is of length zero
+> library(tidyverse)
+── Attaching packages ──────────────────────────────────────────────── tidyverse 1.3.1 ──
+✔ ggplot2 3.3.5     ✔ purrr   0.3.4
+✔ tibble  3.1.2     ✔ dplyr   1.0.7
+✔ tidyr   1.1.3     ✔ stringr 1.4.0
+✔ readr   1.4.0     ✔ forcats 0.5.1
+── Conflicts ─────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+> #install remotes
+> install.packages(remotes)
+Error in install.packages(remotes) : object 'remotes' not found
+> #install data
+> remotes::install_github("allisonhorst/palmerpenguins")
+Skipping install of 'palmerpenguins' from a github remote, the SHA1 (69530276) has not changed since last install.
+  Use `force = TRUE` to force installation
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #check data import
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #double check data import
+> glimpse(penguins)
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.…
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.…
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 18…
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 330…
+$ sex               <fct> male, female, female, NA, female, male, female, male, NA, NA,…
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+> #exploring import
+> unique(penguins$species)
+[1] Adelie    Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo
+> unique(penguins$island)
+[1] Torgersen Biscoe    Dream    
+Levels: Biscoe Dream Torgersen
+> #scatterplot data viz
+> ggplot(data = penguins,
++ aes(x = flipper_length_mm, y = body_mass_g)) +
++ geom_point(aes(color = species, shape = species),
++ size = 3, alpha = 0.8) +
++ #theme_minimal() +
++ scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
++ labs(title = "Penguin size, Palmer Station LTER",
++ subtitle = "Flipper length and body mass for Adelie, Chinstrap, and Gentoo Penguins",
++ x = "Flipper length (mm)",
++ y = "Body mass (g)",
++ color = "Penguin species",
++ shape = "Penguin species") +
++ theme_minimal()
+Warning message:
+Removed 2 rows containing missing values (geom_point). 
+> #install tidyverse
+> install.packages("dplyr")
+--- Please select a CRAN mirror for use in this session ---
+trying URL 'https://ftp.osuosl.org/pub/cran/bin/macosx/contrib/4.1/dplyr_1.0.7.tgz'
+Content type 'application/x-gzip' length 1263555 bytes (1.2 MB)
+==================================================
+downloaded 1.2 MB
+
+
+The downloaded binary packages are in
+	/var/folders/35/17hg7vy55v74chv_m0984vym0000gn/T//RtmprN9v1M/downloaded_packages
+> library(tidyverse)
+> #install remotes
+> install.packages(remotes)
+Error in install.packages(remotes) : object 'remotes' not found
+> #install data
+> remotes::install_github("allisonhorst/palmerpenguins")
+Skipping install of 'palmerpenguins' from a github remote, the SHA1 (69530276) has not changed since last install.
+  Use `force = TRUE` to force installation
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #check data import
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #double check data import
+> glimpse(penguins)
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.…
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.…
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 18…
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 330…
+$ sex               <fct> male, female, female, NA, female, male, female, male, NA, NA,…
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+> #exploring import
+> unique(penguins$species)
+[1] Adelie    Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo
+> unique(penguins$island)
+[1] Torgersen Biscoe    Dream    
+Levels: Biscoe Dream Torgersen
+> #scatterplot data viz
+> ggplot(data = penguins,
++ aes(x = bill_length_mm, y = sex)) +
++ geom_point(aes(color = species, shape = species),
++ size = 3, alpha = 0.8) +
++ #theme_minimal() +
++ scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
++ labs(title = "Penguin size, Palmer Station LTER",
++ subtitle = "Flipper length and body mass for Adelie, Chinstrap, and Gentoo Penguins",
++ x = "Flipper length (mm)",
++ y = "Body mass (g)",
++ color = "Penguin species",
++ shape = "Penguin species") +
++ theme_minimal()
+Warning message:
+Removed 2 rows containing missing values (geom_point). 
+> bill_length_mm
+Error: object 'bill_length_mm' not found
+> #install tidyverse
+> install.packages("dplyr")
+trying URL 'https://ftp.osuosl.org/pub/cran/bin/macosx/contrib/4.1/dplyr_1.0.7.tgz'
+Content type 'application/x-gzip' length 1263555 bytes (1.2 MB)
+==================================================
+downloaded 1.2 MB
+
+
+The downloaded binary packages are in
+	/var/folders/35/17hg7vy55v74chv_m0984vym0000gn/T//RtmprN9v1M/downloaded_packages
+> library(tidyverse)
+> #install remotes
+> install.packages(remotes)
+Error in install.packages(remotes) : object 'remotes' not found
+> #install data
+> remotes::install_github("allisonhorst/palmerpenguins")
+Skipping install of 'palmerpenguins' from a github remote, the SHA1 (69530276) has not changed since last install.
+  Use `force = TRUE` to force installation
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #check data import
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #double check data import
+> glimpse(penguins)
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.…
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.…
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 18…
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 330…
+$ sex               <fct> male, female, female, NA, female, male, female, male, NA, NA,…
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+> #exploring import
+> unique(penguins$species)
+[1] Adelie    Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo
+> unique(penguins$island)
+[1] Torgersen Biscoe    Dream    
+Levels: Biscoe Dream Torgersen
+> #scatterplot data viz
+> ggplot(data = penguins,
++ aes(x = flipper_length_mm, y = body_mass_g)) +
++ geom_point(aes(color = species, shape = species),
++ size = 3, alpha = 0.8) +
++ #theme_minimal() +
++ scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
++ labs(title = "Penguin size, Palmer Station LTER",
++ subtitle = "Flipper length and body mass for Adelie, Chinstrap, and Gentoo Penguins",
++ x = "bill_length_mm (mm)",
++ y = "sex (g)",
++ color = "Penguin species",
++ shape = "Penguin species") +
++ theme_minimal()
+Warning message:
+Removed 2 rows containing missing values (geom_point). 
+> #install tidyverse
+> install.packages("dplyr")
+trying URL 'https://ftp.osuosl.org/pub/cran/bin/macosx/contrib/4.1/dplyr_1.0.7.tgz'
+Content type 'application/x-gzip' length 1263555 bytes (1.2 MB)
+==================================================
+downloaded 1.2 MB
+
+
+The downloaded binary packages are in
+	/var/folders/35/17hg7vy55v74chv_m0984vym0000gn/T//RtmprN9v1M/downloaded_packages
+> library(tidyverse)
+> #install remotes
+> install.packages(remotes)
+Error in install.packages(remotes) : object 'remotes' not found
+> #install data
+> remotes::install_github("allisonhorst/palmerpenguins")
+Skipping install of 'palmerpenguins' from a github remote, the SHA1 (69530276) has not changed since last install.
+  Use `force = TRUE` to force installation
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #check data import
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #double check data import
+> glimpse(penguins)
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.…
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.…
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 18…
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 330…
+$ sex               <fct> male, female, female, NA, female, male, female, male, NA, NA,…
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+> #exploring import
+> unique(penguins$species)
+[1] Adelie    Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo
+> unique(penguins$island)
+[1] Torgersen Biscoe    Dream    
+Levels: Biscoe Dream Torgersen
+> #scatterplot data viz
+> ggplot(data = penguins,
++ aes(x = bill_length_mm, y = sex)) +
++ geom_point(aes(color = species, shape = species),
++ size = 3, alpha = 0.8) +
++ #theme_minimal() +
++ scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
++ labs(title = "Penguin size, Palmer Station LTER",
++ subtitle = "Flipper length and body mass for Adelie, Chinstrap, and Gentoo Penguins",
++ x = "Bill length (mm)",
++ y = "Sex (g)",
++ color = "Penguin species",
++ shape = "Penguin species") +
++ theme_minimal()
+Warning message:
+Removed 2 rows containing missing values (geom_point). 
+> subtitle = "Sex and Bill length for Adelie, Chinstrap, and Gentoo Penguins",
+Error: unexpected ',' in "subtitle = "Sex and Bill length for Adelie, Chinstrap, and Gentoo Penguins","
+> 
+> 
+> > library(tidyverse)
+Error: unexpected '>' in ">"
+> > #install remotes
+Error: unexpected '>' in ">"
+> > install.packages(remotes)
+Error: unexpected '>' in ">"
+> Error in install.packages(remotes) : object 'remotes' not found
+Error: unexpected 'in' in "Error in"
+> > #install data
+Error: unexpected '>' in ">"
+> > remotes::install_github("allisonhorst/palmerpenguins")
+Error: unexpected '>' in ">"
+> Skipping install of 'palmerpenguins' from a github remote, the SHA1 (69530276) has not changed since last install.
+Error: unexpected symbol in "Skipping install"
+>   Use `force = TRUE` to force installation
+Error: unexpected symbol in "  Use `force = TRUE`"
+> > library(palmerpenguins)
+Error: unexpected '>' in ">"
+> > penguins
+Error: unexpected '>' in ">"
+> # A tibble: 344 x 8
+>    species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+Error: unexpected symbol in "   species island"
+>    <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+Error: unexpected '<' in "   <"
+>  1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+Error: unexpected symbol in " 1 Adelie"
+>  2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+Error: unexpected symbol in " 2 Adelie"
+>  3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+Error: unexpected symbol in " 3 Adelie"
+>  4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+Error: unexpected symbol in " 4 Adelie"
+>  5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+Error: unexpected symbol in " 5 Adelie"
+>  6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+Error: unexpected symbol in " 6 Adelie"
+>  7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+Error: unexpected symbol in " 7 Adelie"
+>  8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+Error: unexpected symbol in " 8 Adelie"
+>  9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+Error: unexpected symbol in " 9 Adelie"
+> 10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+Error: unexpected symbol in "10 Adelie"
+> # … with 334 more rows
+> > #check data import
+Error: unexpected '>' in ">"
+> > library(palmerpenguins)
+Error: unexpected '>' in ">"
+> > penguins
+Error: unexpected '>' in ">"
+> # A tibble: 344 x 8
+>    species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+Error: unexpected symbol in "   species island"
+>    <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+Error: unexpected '<' in "   <"
+>  1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+Error: unexpected symbol in " 1 Adelie"
+>  2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+Error: unexpected symbol in " 2 Adelie"
+>  3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+Error: unexpected symbol in " 3 Adelie"
+>  4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+Error: unexpected symbol in " 4 Adelie"
+>  5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+Error: unexpected symbol in " 5 Adelie"
+>  6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+Error: unexpected symbol in " 6 Adelie"
+>  7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+Error: unexpected symbol in " 7 Adelie"
+>  8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+Error: unexpected symbol in " 8 Adelie"
+>  9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+Error: unexpected symbol in " 9 Adelie"
+> 10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+Error: unexpected symbol in "10 Adelie"
+> # … with 334 more rows
+> > #double check data import
+Error: unexpected '>' in ">"
+> > glimpse(penguins)
+Error: unexpected '>' in ">"
+> Rows: 344
+Error: object 'Rows' not found
+> Columns: 8
+Error: object 'Columns' not found
+> $ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
+Error: unexpected '$' in "$"
+> $ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+Error: unexpected '$' in "$"
+> $ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.…
+Error: unexpected '$' in "$"
+> $ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.…
+Error: unexpected '$' in "$"
+> $ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 18…
+Error: unexpected '$' in "$"
+> $ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 330…
+Error: unexpected '$' in "$"
+> $ sex               <fct> male, female, female, NA, female, male, female, male, NA, NA,…
+Error: unexpected '$' in "$"
+> $ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+Error: unexpected '$' in "$"
+> > #exploring import
+Error: unexpected '>' in ">"
+> > unique(penguins$species)
+Error: unexpected '>' in ">"
+> [1] Adelie    Gentoo    Chinstrap
+Error: unexpected '[' in "["
+> Levels: Adelie Chinstrap Gentoo
+Error: unexpected symbol in "Levels: Adelie Chinstrap"
+> > unique(penguins$island)
+Error: unexpected '>' in ">"
+> [1] Torgersen Biscoe    Dream    
+Error: unexpected '[' in "["
+> Levels: Biscoe Dream Torgersen
+Error: unexpected symbol in "Levels: Biscoe Dream"
+> > #scatterplot data viz
+Error: unexpected '>' in ">"
+> > ggplot(data = penguins,
+Error: unexpected '>' in ">"
+> + aes(x = bill_length_mm, y = sex)) +
+Error: unexpected ')' in "+ aes(x = bill_length_mm, y = sex))"
+> + geom_point(aes(color = species, shape = species),
++ + size = 3, alpha = 0.8) +
+Error: unexpected '=' in:
+"+ geom_point(aes(color = species, shape = species),
++ size ="
+> + #theme_minimal() +
++ + scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
++ + labs(title = "Penguin size, Palmer Station LTER",
++ + subtitle = "Bill length and Sex for Adelie, Chinstrap, and Gentoo Penguins",
+Error: unexpected '=' in:
+"+ labs(title = "Penguin size, Palmer Station LTER",
++ subtitle ="
+> + x = "Bill length (mm)",
+Error: unexpected ',' in "+ x = "Bill length (mm)","
+> + y = "Sex (g)",
+Error: unexpected ',' in "+ y = "Sex (g)","
+> + color = "Penguin species",
+Error: unexpected ',' in "+ color = "Penguin species","
+> + shape = "Penguin species") +
+Error: unexpected ')' in "+ shape = "Penguin species")"
+> + theme_minimal()
+Error: Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?
+Run `rlang::last_error()` to see where the error occurred.
+> 
+> #install tidyverse
+> install.packages("dplyr")
+trying URL 'https://ftp.osuosl.org/pub/cran/bin/macosx/contrib/4.1/dplyr_1.0.7.tgz'
+Content type 'application/x-gzip' length 1263555 bytes (1.2 MB)
+==================================================
+downloaded 1.2 MB
+
+
+The downloaded binary packages are in
+	/var/folders/35/17hg7vy55v74chv_m0984vym0000gn/T//RtmprN9v1M/downloaded_packages
+> library(tidyverse)
+> #install remotes
+> install.packages(remotes)
+Error in install.packages(remotes) : object 'remotes' not found
+> #install data
+> remotes::install_github("allisonhorst/palmerpenguins")
+Skipping install of 'palmerpenguins' from a github remote, the SHA1 (69530276) has not changed since last install.
+  Use `force = TRUE` to force installation
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #check data import
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #double check data import
+> glimpse(penguins)
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.…
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.…
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 18…
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 330…
+$ sex               <fct> male, female, female, NA, female, male, female, male, NA, NA,…
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+> #exploring import
+> unique(penguins$species)
+[1] Adelie    Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo
+> unique(penguins$island)
+[1] Torgersen Biscoe    Dream    
+Levels: Biscoe Dream Torgersen
+> #scatterplot data viz
+> ggplot(data = penguins,
++ aes(x = flipper_length_mm, y = body_mass_g)) +
++ geom_point(aes(color = species, shape = species),
++ size = 3, alpha = 0.8) +
++ #theme_minimal() +
++ scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
++ labs(title = "Penguin size, Palmer Station LTER",
++ subtitle = "Flipper length and body mass for Adelie, Chinstrap, and Gentoo Penguins",
++ x = "Flipper length (mm)",
++ y = "Body mass (g)",
++ color = "Penguin species",
++ shape = "Penguin species") +
++ theme_minimal()
+Warning message:
+Removed 2 rows containing missing values (geom_point). 
+> #install tidyverse
+> install.packages("dplyr")
+trying URL 'https://ftp.osuosl.org/pub/cran/bin/macosx/contrib/4.1/dplyr_1.0.7.tgz'
+Content type 'application/x-gzip' length 1263555 bytes (1.2 MB)
+==================================================
+downloaded 1.2 MB
+
+
+The downloaded binary packages are in
+	/var/folders/35/17hg7vy55v74chv_m0984vym0000gn/T//RtmprN9v1M/downloaded_packages
+> library(tidyverse)
+> #install remotes
+> install.packages(remotes)
+Error in install.packages(remotes) : object 'remotes' not found
+> #install data
+> remotes::install_github("allisonhorst/palmerpenguins")
+Skipping install of 'palmerpenguins' from a github remote, the SHA1 (69530276) has not changed since last install.
+  Use `force = TRUE` to force installation
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #check data import
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #double check data import
+> glimpse(penguins)
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.…
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.…
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 18…
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 330…
+$ sex               <fct> male, female, female, NA, female, male, female, male, NA, NA,…
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+> #exploring import
+> unique(penguins$species)
+[1] Adelie    Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo
+> unique(penguins$island)
+[1] Torgersen Biscoe    Dream    
+Levels: Biscoe Dream Torgersen
+> #scatterplot data viz
+> ggplot(data = penguins,
++ aes(x = bill_length_mm, y = sex_g)) +
++ geom_point(aes(color = species, shape = species),
++ size = 3, alpha = 0.8) +
++ #theme_minimal() +
++ scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
++ labs(title = "Penguin size, Palmer Station LTER",
++ subtitle = "Bill length and Sex for Adelie, Chinstrap, and Gentoo Penguins",
++ x = "Bill length (mm)",
++ y = "Sex (g)",
++ color = "Penguin species",
++ shape = "Penguin species") +
++ theme_minimal()
+Error in FUN(X[[i]], ...) : object 'sex_g' not found
+2021-07-16 12:52:39.836 R[74015:3460235] +[NSSavePanel _warmUp] obviated
+> #install tidyverse
+> install.packages("dplyr")
+trying URL 'https://ftp.osuosl.org/pub/cran/bin/macosx/contrib/4.1/dplyr_1.0.7.tgz'
+Content type 'application/x-gzip' length 1263555 bytes (1.2 MB)
+==================================================
+downloaded 1.2 MB
+
+
+The downloaded binary packages are in
+	/var/folders/35/17hg7vy55v74chv_m0984vym0000gn/T//RtmprN9v1M/downloaded_packages
+> library(tidyverse)
+> #install remotes
+> install.packages(remotes)
+Error in install.packages(remotes) : object 'remotes' not found
+> #install data
+> remotes::install_github("allisonhorst/palmerpenguins")
+Skipping install of 'palmerpenguins' from a github remote, the SHA1 (69530276) has not changed since last install.
+  Use `force = TRUE` to force installation
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #check data import
+> library(palmerpenguins)
+> penguins
+# A tibble: 344 x 8
+   species island   bill_length_mm bill_depth_mm flipper_length_… body_mass_g sex    year
+   <fct>   <fct>             <dbl>         <dbl>            <int>       <int> <fct> <int>
+ 1 Adelie  Torgers…           39.1          18.7              181        3750 male   2007
+ 2 Adelie  Torgers…           39.5          17.4              186        3800 fema…  2007
+ 3 Adelie  Torgers…           40.3          18                195        3250 fema…  2007
+ 4 Adelie  Torgers…           NA            NA                 NA          NA <NA>   2007
+ 5 Adelie  Torgers…           36.7          19.3              193        3450 fema…  2007
+ 6 Adelie  Torgers…           39.3          20.6              190        3650 male   2007
+ 7 Adelie  Torgers…           38.9          17.8              181        3625 fema…  2007
+ 8 Adelie  Torgers…           39.2          19.6              195        4675 male   2007
+ 9 Adelie  Torgers…           34.1          18.1              193        3475 <NA>   2007
+10 Adelie  Torgers…           42            20.2              190        4250 <NA>   2007
+# … with 334 more rows
+> #double check data import
+> glimpse(penguins)
+Rows: 344
+Columns: 8
+$ species           <fct> Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adeli…
+$ island            <fct> Torgersen, Torgersen, Torgersen, Torgersen, Torgersen, Torger…
+$ bill_length_mm    <dbl> 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, 42.0, 37.…
+$ bill_depth_mm     <dbl> 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, 20.2, 17.…
+$ flipper_length_mm <int> 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186, 180, 18…
+$ body_mass_g       <int> 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, 4250, 330…
+$ sex               <fct> male, female, female, NA, female, male, female, male, NA, NA,…
+$ year              <int> 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2…
+> #exploring import
+> unique(penguins$species)
+[1] Adelie    Gentoo    Chinstrap
+Levels: Adelie Chinstrap Gentoo
+> unique(penguins$island)
+[1] Torgersen Biscoe    Dream    
+Levels: Biscoe Dream Torgersen
+> #scatterplot data viz
+> ggplot(data = penguins,
++ aes(x = bill_length_mm, y = sex)) +
++ geom_point(aes(color = species, shape = species),
++ size = 3, alpha = 0.8) +
++ #theme_minimal() +
++ scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
++ labs(title = "Penguin size, Palmer Station LTER",
++ subtitle = "Bill length and Sex for Adelie, Chinstrap, and Gentoo Penguins",
++ x = "Bill length (mm)",
++ y = "Sex (g)",
++ color = "Penguin species",
++ shape = "Penguin species") +
++ theme_minimal()
+Warning message:
+Removed 2 rows containing missing values (geom_point). 
+> 
